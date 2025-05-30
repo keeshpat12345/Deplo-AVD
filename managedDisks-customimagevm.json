@@ -517,7 +517,9 @@
                     "name": "[concat(parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')), '/AzureMonitorWindowsAgent')]",
                     "apiVersion": "2021-11-01",
                     "location": "[parameters('location')]",
-                    "dependsOn": [ "rdsh-vm-loop" ],
+                    "dependsOn": [
+                        "rdsh-vm-loop"
+                    ],
                     "copy": {
                         "name": "amaExtensionLoop",
                         "count": "[parameters('rdshNumberOfInstances')]"
@@ -557,7 +559,7 @@
             "name": "[concat(parameters('rdshPrefix'), add(copyindex(), parameters('vmInitialNumber')), '/', 'Microsoft.PowerShell.DSC')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "rdsh-vm-loop"
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')))]"
             ],
             "copy": {
                 "name": "rdsh-dsc-loop",
@@ -590,7 +592,7 @@
             "name": "[concat(parameters('rdshPrefix'), add(copyindex(), parameters('vmInitialNumber')), '/', 'AADLoginForWindows')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "rdsh-dsc-loop"
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')))]"
             ],
             "copy": {
                 "name": "rdsh-aad-join-loop",
@@ -611,7 +613,7 @@
             "name": "[concat(parameters('rdshPrefix'), add(copyindex(), parameters('vmInitialNumber')), '/', 'joindomain')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "rdsh-dsc-loop"
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')))]"
             ],
             "copy": {
                 "name": "rdsh-domain-join-loop",
