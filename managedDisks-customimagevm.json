@@ -517,7 +517,7 @@
                     "name": "[concat(parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')), '/AzureMonitorWindowsAgent')]",
                     "apiVersion": "2021-11-01",
                     "location": "[parameters('location')]",
-                    "dependsOn": [ "rdsh-vm-loop" ],"
+                    "dependsOn": [ "rdsh-vm-loop" ],
                     "copy": {
                         "name": "amaExtensionLoop",
                         "count": "[parameters('rdshNumberOfInstances')]"
