@@ -517,9 +517,7 @@
                     "name": "[concat(parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')), '/AzureMonitorWindowsAgent')]",
                     "apiVersion": "2021-11-01",
                     "location": "[parameters('location')]",
-                    "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('rdshPrefix'), add(copyIndex(), parameters('vmInitialNumber')))]"
-                    ],
+                    "dependsOn": [ "rdsh-vm-loop" ],"
                     "copy": {
                         "name": "amaExtensionLoop",
                         "count": "[parameters('rdshNumberOfInstances')]"
@@ -529,7 +527,7 @@
                         "type": "AzureMonitorWindowsAgent",
                         "typeHandlerVersion": "1.10",
                         "autoUpgradeMinorVersion": true,
-                        "enableAutomaticUpgrade": true,
+                        "enableAutomaticUpgrade": false,
                         "settings": {}
                     }
                 },
